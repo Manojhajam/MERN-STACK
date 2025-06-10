@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { PostModel } from "./Models/postModel.js";
+import { UserModel } from "./Models/userModels.js";
 
 const app = express();
 app.use(express.json());
@@ -97,8 +98,14 @@ app.delete("/deletePost/:postId", async (req, res) => {
 
 //User
 
-app.post('/createPost', (req, res) => {
-  
+app.post('/createUsers', async (req, res) => {
+  const reqBody = req.body;
+  const newUSers =await UserModel.create(reqBody)
+
+  res.json({
+    success: true,
+    data: newUSers
+  })
 })
 
 app.listen(PORT, () => {
